@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 <template>
   <div
-    class="flex pt-10 mx-auto flex-col justify-center items-center shadow-lg"
+    class="flex dark:bg-slate-900 pt-10 mx-auto flex-col justify-center items-center shadow-lg"
   >
     <div>
       <img src="/assets/images/lp-logo.png" alt="Footer Logo" class="h-12" />

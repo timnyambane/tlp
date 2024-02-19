@@ -1,6 +1,6 @@
 <script setup lang="ts"></script>
 <template>
-  <div class="mx-auto p-4 mission">
+  <div class="mx-auto p-4 mission bg-lightBlue">
     <h1 class="font-black lg:text-5xl text-3xl text-center m-4 mt-10">
       Our Mission
     </h1>
@@ -8,7 +8,7 @@
       class="flex flex-col sm:flex-row items-center sm:px-28 px-5 gap-5 sm:container justify-evenly mt-10 mx-auto"
     >
       <div
-        class="card z-10 bg-white p-10 rounded-md shadow-lg h-[25rem] flex flex-1 flex-col items-center"
+        class="card z-10 bg-white dark:bg-slate-900 p-10 rounded-md shadow-lg h-[25rem] flex flex-1 flex-col items-center"
       >
         <img src="/assets/images/connect.png" alt="" class="w-48" />
         <h3 class="text-bold font-bold text-xl m-3 text-primary">Connect</h3>
@@ -17,7 +17,7 @@
         </h4>
       </div>
       <div
-        class="card z-10 bg-white p-10 rounded-md shadow-lg h-[25rem] flex flex-1 flex-col items-center"
+        class="card z-10 bg-white dark:bg-slate-900 p-10 rounded-md shadow-lg h-[25rem] flex flex-1 flex-col items-center"
       >
         <img src="/assets/images/give.png" alt="" class="w-48" />
         <h3 class="text-bold font-bold text-xl m-3 text-primary">Give</h3>
@@ -28,7 +28,7 @@
         </h4>
       </div>
       <div
-        class="card z-10 bg-white p-10 rounded-md shadow-lg h-[25rem] flex flex-1 flex-col items-center"
+        class="card z-10 bg-white dark:bg-slate-900 p-10 rounded-md shadow-lg h-[25rem] flex flex-1 flex-col items-center"
       >
         <img src="/assets/images/build.png" alt="" class="w-48" />
         <h3 class="text-bold font-bold text-xl m-3 text-primary">Build</h3>
@@ -43,7 +43,6 @@
 
 <style scoped>
 .mission {
-  background-color: #e0f2fe;
   position: relative;
 }
 

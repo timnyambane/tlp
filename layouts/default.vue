@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 <template>
   <div>
-    <CommonNavigationBar />
+    <CommonTopNavigation />
     <slot />
     <CommonFooterNav />
   </div>
