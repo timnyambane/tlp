@@ -22,9 +22,9 @@ const isDark = computed({
   <div
     class="flex dark:bg-slate-900 items-center justify-between py-3 px-4 shadow lg:px-56 lg:py-4 lg:mx-auto"
   >
-    <div class="flex items-center flex-1">
+    <NuxtLink class="flex items-center flex-1" to="/">
       <img src="~assets/images/lp-logo.png" alt="Logo" class="w-64" />
-    </div>
+    </NuxtLink>
 
     <!-- Mobile Menu icon -->
     <UIcon
@@ -36,43 +36,45 @@ const isDark = computed({
 
     <!-- Navigation for larger screens -->
     <div class="hidden lg:flex gap-4 items-center justify-center flex-1">
-      <NuxtLink class="hover:text-primary font-medium" to="/"
+      <NuxtLink class="hover:text-primary font-medium" to="/register/customer"
         >Register as User</NuxtLink
       >
-      <NuxtLink class="hover:text-primary font-medium" to="/"
+      <NuxtLink class="hover:text-primary font-medium" to="/register/business"
         >Register Business</NuxtLink
       >
     </div>
-    <!-- Make this div hidden on small screens -->
     <div class="flex-1 justify-end lg:flex hidden">
-      <NuxtLink
+      <UButton
+        variant="soft"
+        icon="i-heroicons-phone-20-solid"
+        label="Contact Us"
+        class="mx-2"
+        size="lg"
+      />
+      <UButton label="Login" to="/login" class="mx-2 px-4" size="lg" />
+
+      <!-- <NuxtLink
         to="/"
         class="border px-4 py-1 rounded border-primary text-primary hover:bg-primary hover:text-white transition-all font-bold"
         >Log In
-      </NuxtLink>
+      </NuxtLink> -->
 
-      <ClientOnly>
-        <UButton
-          class="mx-2 px-2 hover:bg-mariner-400"
-          :icon="
-            isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'
-          "
-          color="gray"
-          variant="ghost"
-          aria-label="Theme"
-          @click="isDark = !isDark"
-        />
-        <template #fallback>
-          <div class="w-8 h-8" />
-        </template>
-      </ClientOnly>
+      <UButton
+        class="mx-2 px-2"
+        :icon="
+          isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'
+        "
+        variant="ghost"
+        aria-label="Theme"
+        @click="isDark = !isDark"
+      />
     </div>
 
     <!-- Navigation for mobile screen -->
     <transition name="slide">
       <div
         v-if="showSideMenu"
-        class="lg:hidden fixed top-0 left-0 h-full w-8/12 p-4 bg-white flex flex-col shadow-lg"
+        class="lg:hidden fixed top-0 left-0 h-screen z-50 w-8/12 p-4 bg-white flex flex-col shadow-lg"
       >
         <div class="flex justify-end mb-4">
           <UIcon
@@ -82,8 +84,12 @@ const isDark = computed({
             class="lg:hidden ml-4 flex"
           />
         </div>
-        <NuxtLink class="m-2 text-primary" to="/">Register as User</NuxtLink>
-        <NuxtLink class="m-2 text-primary" to="/">Register Business</NuxtLink>
+        <NuxtLink class="m-2 text-primary" to="/register/customer"
+          >Register as User</NuxtLink
+        >
+        <NuxtLink class="m-2 text-primary" to="/register/business"
+          >Register Business</NuxtLink
+        >
         <hr />
         <NuxtLink
           to="/"
