@@ -36,10 +36,16 @@ const isDark = computed({
 
     <!-- Navigation for larger screens -->
     <div class="hidden lg:flex gap-4 items-center justify-center flex-1">
-      <NuxtLink class="hover:text-primary font-medium" to="/register/customer"
-        >Register as User</NuxtLink
+      <NuxtLink
+        class="hover:text-primary font-medium"
+        to="/register/customer"
+        exact-active-class="text-primary"
+        >Register as Customer</NuxtLink
       >
-      <NuxtLink class="hover:text-primary font-medium" to="/register/business"
+      <NuxtLink
+        class="hover:text-primary font-medium"
+        to="/register/business"
+        exact-active-class="text-primary"
         >Register Business</NuxtLink
       >
     </div>
@@ -85,7 +91,7 @@ const isDark = computed({
           />
         </div>
         <NuxtLink class="m-2 text-primary" to="/register/customer"
-          >Register as User</NuxtLink
+          >Register as Customer</NuxtLink
         >
         <NuxtLink class="m-2 text-primary" to="/register/business"
           >Register Business</NuxtLink

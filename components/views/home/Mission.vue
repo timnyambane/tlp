@@ -1,6 +1,6 @@
 <script setup lang="ts"></script>
 <template>
-  <div class="mx-auto p-4 mission bg-lightBlue dark:bg-slate-950">
+  <div class="mx-auto p-4 mission bg-lightBlue dark:bg-gray-800">
     <h1 class="font-black lg:text-5xl text-3xl text-center m-4 mt-10">
       Our Mission
     </h1>

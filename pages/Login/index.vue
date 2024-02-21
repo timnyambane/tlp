@@ -1,34 +1,25 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { string, objectAsync, email, minLength, type Input } from "valibot";
+import type { FormSubmitEvent } from "#ui/types";
 
-const showError = reactive({ email: false, password: false });
-const loginDetails = reactive({
-  email: null,
-  password: null,
-  loading: false,
+const schema = objectAsync({
+  email: string([
+    minLength(1, "E-mail cannot be blank"),
+    email("Invalid email"),
+  ]),
+  password: string([minLength(1, "Password cannot be blank")]),
 });
 
-const onSubmit = async () => {
-  let hasError = false;
+type Schema = Input<typeof schema>;
 
-  if (!loginDetails.email) {
-    showError.email = true;
-    hasError = true;
-  }
-  if (!loginDetails.password) {
-    showError.password = true;
-    hasError = true;
-  }
+const loginDetails = reactive({
+  email: "",
+  password: "",
+});
 
-  if (!hasError) {
-    console.log(loginDetails);
-    loginDetails.loading = true;
-
-    setTimeout(() => {
-      loginDetails.loading = false;
-    }, 3000);
-  }
-};
+async function onSubmit(event: FormSubmitEvent<Schema>) {
+  console.log(event.data);
+}
 </script>
 <template>
   <div>
@@ -37,21 +28,12 @@ const onSubmit = async () => {
     </h1>
 
     <UForm
+      :schema="schema"
       :state="loginDetails"
       class="space-y-4 lg:w-1/4 w-4/5 mx-auto pb-6"
       @submit="onSubmit"
     >
-      <UFormGroup
-        label="Email"
-        name="email"
-        size="lg"
-        :error="showError.email && 'You must enter an email'"
-        @input="
-          () => {
-            showError.email = false;
-          }
-        "
-      >
+      <UFormGroup label="Email" name="email" size="lg">
         <UInput
           v-model="loginDetails.email"
           placeholder="you@example.com"
@@ -59,17 +41,7 @@ const onSubmit = async () => {
         />
       </UFormGroup>
 
-      <UFormGroup
-        label="Password"
-        name="password"
-        size="lg"
-        :error="showError.password && 'You must enter a password'"
-        @input="
-          () => {
-            showError.password = false;
-          }
-        "
-      >
+      <UFormGroup label="Password" name="password" size="lg">
         <UInput
           v-model="loginDetails.password"
           type="password"
@@ -79,13 +51,7 @@ const onSubmit = async () => {
       </UFormGroup>
 
       <div class="flex items-center justify-center">
-        <UButton
-          :loading="loginDetails.loading"
-          type="submit"
-          class="px-20"
-          size="lg"
-          >Login</UButton
-        >
+        <UButton type="submit" class="px-20" size="lg">Login</UButton>
       </div>
     </UForm>
   </div>

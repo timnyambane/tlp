@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 <template>
   <div
-    class="flex dark:bg-slate-900 pt-10 mx-auto flex-col justify-center items-center shadow-lg"
+    class="flex dark:bg-slate-950 bg-pattensBlue-100 pt-10 mx-auto flex-col justify-center items-center shadow-lg"
   >
     <div>
       <img src="/assets/images/lp-logo.png" alt="Footer Logo" class="h-12" />
@@ -9,23 +9,34 @@
     <div
       class="flex w-[90%] justify-evenly m-5 pb-10 mt-10 border-b-2 flex-col sm:flex-row items-center"
     >
-      <NuxtLink class="hover:text-primary my-2 py-1 text-center" to="/"
+      <NuxtLink
+        class="hover:text-primary my-2 py-1 text-center"
+        to="/"
+        exact-active-class="text-primary"
         >Post a job</NuxtLink
       >
-      <NuxtLink class="hover:text-primary my-2 py-1 text-center" to="/"
+      <NuxtLink
+        class="hover:text-primary my-2 py-1 text-center"
+        to="/"
+        exact-active-class="text-primary"
         >Business directory</NuxtLink
       >
       <NuxtLink
         class="hover:text-primary my-2 py-1 text-center"
         to="/register/customer"
-        >Register a User</NuxtLink
+        exact-active-class="text-primary"
+        >Register a Customer</NuxtLink
       >
       <NuxtLink
         class="hover:text-primary my-2 py-1 text-center"
         to="/register/business"
+        exact-active-class="text-primary"
         >Register a Business</NuxtLink
       >
-      <NuxtLink class="hover:text-primary my-2 py-1 text-center" to="/"
+      <NuxtLink
+        class="hover:text-primary my-2 py-1 text-center"
+        to="/"
+        exact-active-class="text-primary"
         >Contact Us</NuxtLink
       >
     </div>

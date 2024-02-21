@@ -4,5 +4,6 @@
     <ViewsHomeLanding />
     <ViewsHomeMission />
     <ViewsHomeHowItWorks />
+    <ViewsHomeReviews />
   </div>
 </template>
