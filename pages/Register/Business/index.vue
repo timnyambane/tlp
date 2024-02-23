@@ -1,20 +1,8 @@
 <script setup lang="ts">
-import {
-  string,
-  object,
-  objectAsync,
-  email,
-  minLength,
-  maxLength,
-  regex,
-  forward,
-  custom,
-  array,
-} from "valibot";
-import { locations, jobCategories } from "../../../data";
-import type { RegisterDetails, ValidationContext } from "../../../data";
+import { locations, jobCategories, fakeStripePackages } from "../../../data";
+import type { BusinessRegisterDetails } from "../../../data";
 
-const registerDetails: RegisterDetails = reactive({
+const registerDetails: BusinessRegisterDetails = reactive({
   name: "",
   email: "",
   phoneNumber: "",
@@ -26,52 +14,26 @@ const registerDetails: RegisterDetails = reactive({
   services: [],
 });
 
-function comparePasswords(value: string, context: ValidationContext) {
-  const { parent } = context;
-  const password1 = (parent as Record<string, unknown>)["password1"];
-
-  if (!password1 || value !== String(password1)) {
-    context.addError("password2", "Passwords do not match.");
-  }
-}
-
-const PasswordSchema = object(
+const btnLinks = [
   {
-    password1: string([
-      minLength(1, "Please enter your password."),
-      minLength(8, "Your password must have 8 characters or more."),
-    ]),
-    password2: string(),
+    label: "Personal Details",
+    icon: "i-heroicons-home",
+    registerStep: "first-step",
   },
-  [
-    custom(
-      (input: { password1: string; password2: string }) =>
-        input.password1 === input.password2,
-      "The two passwords do not match."
-    ),
-  ]
-);
+  {
+    label: "Business Details",
+    icon: "i-heroicons-square-3-stack-3d",
+    registerStep: "second-step",
+  },
+  {
+    label: "Payment Details",
+    icon: "i-heroicons-link",
+    registerStep: "third-step",
+  },
+];
 
-const schema = objectAsync({
-  name: string([minLength(3, "Full Name cannot be shorter than 3 letters")]),
-  email: string([
-    minLength(1, "Please enter your email."),
-    email("The email is badly formatted."),
-    maxLength(30, "Your email is too long."),
-  ]),
-  password: PasswordSchema.entries.password1,
-  confirmPassword: PasswordSchema.entries.password2,
-  phoneNumber: string([
-    minLength(10, "Phone number must be at least 10 digits."),
-    maxLength(10, "Phone number must be at most 10 digits."),
-  ]),
-  businessName: string([minLength(1, "Please enter your business name.")]),
-  businessLocation: string([
-    minLength(1, "Please enter your business location."),
-  ]),
-  workCategory: string([minLength(1, "Please choose your work category")]),
-  services: array(string(), "At least one service is required."),
-});
+const showLoading = ref(false);
+const stepRegistrationName = ref("first-step");
 
 const selectedServices = computed(() => {
   const selectedCategory = registerDetails.workCategory;
@@ -82,11 +44,55 @@ const resetSelectedServices = () => {
   registerDetails.services = [];
 };
 
+const goToPreviousStep = () => {
+  switch (stepRegistrationName.value) {
+    case "third-step":
+      stepRegistrationName.value = "second-step";
+      break;
+    case "second-step":
+      stepRegistrationName.value = "first-step";
+      break;
+    default:
+      break;
+  }
+};
+
 watch(() => registerDetails.workCategory, resetSelectedServices);
 
-async function onSubmit() {
-  console.log(registerDetails);
+const handleRegisterClick = () => {
+  switch (stepRegistrationName.value) {
+    case "first-step":
+      stepRegistrationName.value = "second-step";
+      break;
+    case "second-step":
+      stepRegistrationName.value = "third-step";
+      break;
+    case "third-step":
+      submitForm();
+      break;
+    default:
+      break;
+  }
+};
+
+function handleStepClick({ registerStep }: { registerStep: string }) {
+  stepRegistrationName.value = registerStep;
 }
+
+const btnTitle = computed(() => {
+  switch (stepRegistrationName.value) {
+    case "first-step":
+      return "Next Step";
+    case "second-step":
+      return "Next Step";
+    case "third-step":
+      return "Register";
+    default:
+      return "";
+  }
+});
+
+async function submitForm() {}
 </script>
 <template>
   <div>
@@ -97,13 +103,27 @@ async function onSubmit() {
     </h1>
     <ClientOnly>
       <UForm
-        :schema="schema"
         :state="registerDetails"
         class="gap-4 lg:w-1/2 w-4/5 flex-col mx-auto flex pb-6"
-        @submit="onSubmit"
       >
-        <div class="flex flex-col lg:flex-row gap-5">
-          <div class="flex gap-4 flex-col flex-1">
+        <div class="flex justify-center py-2">
+          <UButton
+            v-for="(button, index) in btnLinks"
+            :key="index"
+            :color="
+              stepRegistrationName === button.registerStep ? 'primary' : 'gray'
+            "
+            :icon="button.icon"
+            variant="link"
+            :label="button.label"
+            @click="handleStepClick(button)"
+          />
+        </div>
+        <div class="flex flex-col lg:flex-row gap-5 justify-center">
+          <div
+            v-if="stepRegistrationName === 'first-step'"
+            class="flex gap-4 flex-col w-3/5"
+          >
             <UFormGroup label="Full Names" name="name" size="lg">
               <UInput
                 v-model="registerDetails.name"
@@ -129,7 +149,12 @@ async function onSubmit() {
               />
             </UFormGroup>
             <div class="flex lg:flex-row flex-col gap-4">
-              <UFormGroup label="Password" name="password" size="lg">
+              <UFormGroup
+                label="Password"
+                name="password"
+                size="lg"
+                class="flex-1"
+              >
                 <UInput
                   v-model="registerDetails.password"
                   type="password"
@@ -142,6 +167,7 @@ async function onSubmit() {
                 label="Confirm Password"
                 name="confirmPassword"
                 size="lg"
+                class="flex-1"
               >
                 <UInput
                   v-model="registerDetails.confirmPassword"
@@ -153,7 +179,10 @@ async function onSubmit() {
             </div>
           </div>
 
-          <div class="flex gap-4 flex-col flex-1">
+          <div
+            v-if="stepRegistrationName === 'second-step'"
+            class="flex flex-col w-3/5 gap-4"
+          >
             <UFormGroup label="Business Name" name="businessName" size="lg">
               <UInput
                 v-model="registerDetails.businessName"
@@ -169,8 +198,8 @@ async function onSubmit() {
               size="lg"
             >
               <USelectMenu
-                searchable
                 v-model="registerDetails.businessLocation"
+                searchable
                 :options="locations"
                 placeholder="Choose your Location"
                 icon="i-heroicons-map-pin-solid"
@@ -178,8 +207,8 @@ async function onSubmit() {
             </UFormGroup>
             <UFormGroup label="Work Category" name="workCategory" size="lg">
               <USelectMenu
-                searchable
                 v-model="registerDetails.workCategory"
+                searchable
                 :options="Object.keys(jobCategories)"
                 placeholder="Choose your category"
                 icon="i-heroicons-queue-list"
@@ -187,21 +216,46 @@ async function onSubmit() {
             </UFormGroup>
             <UFormGroup label="Services we provide" name="services" size="lg">
               <USelectMenu
-                multiple
                 v-model="registerDetails.services"
+                multiple
                 :options="selectedServices"
                 placeholder="Select from the options"
                 icon="i-heroicons-queue-list"
               />
             </UFormGroup>
           </div>
+          <div
+            v-if="stepRegistrationName === 'third-step'"
+            class="flex gap-4 flex-col w-full"
+          >
+            <div class="flex gap-4">
+              <UCard
+                v-for="stripe in fakeStripePackages"
+                :key="stripe.id"
+                class="p-2 gap-4"
+                variant="patternBlue"
+              >
+                <template #header>
+                  <Placeholder class="h-8" />
+                </template>
+
+                {{ stripe }}
+
+                <template #footer>
+                  <Placeholder class="h-8" />
+                </template>
+              </UCard>
+            </div>
+          </div>
         </div>
-        <div class="flex my-2 justify-center items-center">
+        <div class="flex justify-center">
           <UButton
+            :loading="showLoading"
             type="submit"
             class="w-fit py-2 px-20"
             size="xl"
-            label="Register"
+            @click="handleRegisterClick"
+            :label="btnTitle"
           />
         </div>
       </UForm>

@@ -24,16 +24,16 @@ const selected = ref([]);
       class="multi-select flex flex-col sm:flex-row gap-4 w-2/3 my-10 mx-auto justify-evenly items-center"
     >
       <USelectMenu
-        searchable
         v-model="selected"
+        searchable
         :options="people"
         class="flex-1 text-center"
         size="xl"
         placeholder="Choose a Service Category"
       />
       <USelectMenu
-        searchable
         v-model="selected"
+        searchable
         :options="people"
         class="flex-1 text-center"
         size="xl"
@@ -47,7 +47,10 @@ const selected = ref([]);
       />
     </div>
     <div class="container mx-auto">
-      <img src="/assets/images/landing-img.png" alt="Landing Image" />
+      <img
+        src="/assets/images/landing-img.png"
+        alt="Landing Image"
+      >
     </div>
   </div>
 </template>

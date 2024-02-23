@@ -14,7 +14,7 @@ const items = [
   },
   {
     image: "https://picsum.photos/1920/1080?random=4",
-    text: "Suspendisse potenti Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet.",
+    text: "Suspendisse potenti Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet Lorem sit amet.",
   },
   {
     image: "https://picsum.photos/1920/1080?random=5",
@@ -37,11 +37,11 @@ const items = [
     </h1>
 
     <UCarousel
-      arrows
       v-slot="{ item }"
+      arrows
       :items="items"
       :ui="{
-        item: 'basis-full md:basis-4/5 lg:basis-1/5 justify-center mx-2 rounded-lg',
+        item: 'basis-full my-5 shadow-lg md:basis-4/5 lg:basis-1/5 justify-center mx-2 rounded-lg',
         container:
           'w-full px-10 flex items-center justify-center overflow-x-hidden',
         wrapper: 'flex lg:px-10 px-4 mx-4 lg:mx-24',
@@ -52,9 +52,9 @@ const items = [
       >
         <img
           :src="item.image"
-          class="w-32 h-32 rounded-full object-cover mb-4"
+          class="size-36 rounded-full object-cover mb-4"
           draggable="false"
-        />
+        >
         <div class="text-center">
           {{ item.text }}
         </div>

@@ -10,8 +10,14 @@
       <div
         class="card z-10 bg-white dark:bg-slate-900 p-10 rounded-md shadow-lg h-[25rem] flex flex-1 flex-col items-center"
       >
-        <img src="/assets/images/connect.png" alt="" class="w-48" />
-        <h3 class="text-bold font-bold text-xl m-3 text-primary">Connect</h3>
+        <img
+          src="/assets/images/connect.png"
+          alt=""
+          class="w-48"
+        >
+        <h3 class="text-bold font-bold text-xl m-3 text-primary">
+          Connect
+        </h3>
         <h4 class="text-center">
           Connect with business and build local communities
         </h4>
@@ -19,8 +25,14 @@
       <div
         class="card z-10 bg-white dark:bg-slate-900 p-10 rounded-md shadow-lg h-[25rem] flex flex-1 flex-col items-center"
       >
-        <img src="/assets/images/give.png" alt="" class="w-48" />
-        <h3 class="text-bold font-bold text-xl m-3 text-primary">Give</h3>
+        <img
+          src="/assets/images/give.png"
+          alt=""
+          class="w-48"
+        >
+        <h3 class="text-bold font-bold text-xl m-3 text-primary">
+          Give
+        </h3>
         <h4 class="text-center">
           Giving an opportunity to all local businesses to be able to succeed
           and not have to compete with big companies and the power of the
@@ -30,8 +42,14 @@
       <div
         class="card z-10 bg-white dark:bg-slate-900 p-10 rounded-md shadow-lg h-[25rem] flex flex-1 flex-col items-center"
       >
-        <img src="/assets/images/build.png" alt="" class="w-48" />
-        <h3 class="text-bold font-bold text-xl m-3 text-primary">Build</h3>
+        <img
+          src="/assets/images/build.png"
+          alt=""
+          class="w-48"
+        >
+        <h3 class="text-bold font-bold text-xl m-3 text-primary">
+          Build
+        </h3>
         <h4 class="text-center">
           Build trusted relationships in all local areas by giving customers
           fair prices and peace of mind

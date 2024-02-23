@@ -1,44 +1,47 @@
 <script setup lang="ts">
-import {
-  string,
-  object,
-  objectAsync,
-  email,
-  minLength,
-  maxLength,
-  regex,
-} from "valibot";
+import { z } from "zod";
 import type { FormSubmitEvent } from "#ui/types";
+import type { CustomerRegisterDetails } from "~/data";
 
-const PasswordSchema = object({
-  password1: string([
-    minLength(1, "Please enter your password."),
-    minLength(8, "Your password is too short."),
-    maxLength(30, "Your password is too long."),
-    regex(/[a-z]/, "Your password must contain a lowercase letter."),
-    regex(/[A-Z]/, "Your password must contain a uppercase letter."),
-    regex(/[0-9]/, "Your password must contain a number."),
-  ]),
-  password2: string(),
+const schema = z.object({
+  name: z
+    .string()
+    .min(1, "Full Name is required")
+    .min(3, "Full Name cannot be shorter than 3 letters")
+    .refine(
+      (value: string) => {
+        const names = value.trim().split(" ");
+        return names.length >= 2;
+      },
+      {
+        message: "Full Name should contain at least two names",
+      }
+    ),
+  email: z.string().min(1, "E-mail is required").email("E-mail is not valid"),
+  phoneNumber: z
+    .string()
+    .min(1, "Phone Number is required")
+    .regex(/^\+44\d{10}$/, {
+      message: "Phone Number should start with +44 and be 10 digits",
+    })
+    .transform((val: string) => val?.replace(/^\+/, "")),
+  password: z
+    .string()
+    .min(1, "Password is required")
+    .min(6, "Password must be at least 6 characters long")
+    .regex(/[A-Z]/, "Password must contain at least one capital letter"),
+  confirmPassword: z
+    .string()
+    .min(1, "Password confirmation is required")
+    .refine((data: any) => data.confirmPassword === data.password, {
+      message: "Passwords don't match.",
+      path: ["confirmPassword"],
+    }),
 });
 
-const schema = objectAsync({
-  name: string([minLength(3, "Full Name cannot be shorter than 3 letters")]),
-  email: string([
-    minLength(1, "Please enter your email."),
-    email("The email is badly formatted."),
-    maxLength(30, "Your email is too long."),
-  ]),
-  password: PasswordSchema.entries.password1,
-  confirmPassword: PasswordSchema.entries.password2,
-  phoneNumber: string([
-    minLength(10, "Phone number must be at least 10 digits."),
-    maxLength(10, "Phone number must be at most 10 digits."),
-  ]),
-  //phoneNumber: number([toMinValue(10)]),
-});
+type Schema = z.output<typeof schema>;
 
-const registerDetails = reactive({
+const registerDetails: CustomerRegisterDetails = reactive({
   name: "",
   email: "",
   phoneNumber: "",
@@ -46,7 +49,7 @@ const registerDetails = reactive({
   confirmPassword: "",
 });
 
-async function onSubmit(event: FormSubmitEvent<typeof schema>) {
+async function onSubmit(event: FormSubmitEvent<Schema>) {
   console.log(event.data);
 }
 </script>
@@ -57,8 +60,8 @@ async function onSubmit(event: FormSubmitEvent<typeof schema>) {
     >
       Register as Customer
     </h1>
-    <ClientOnly
-      ><UForm
+    <ClientOnly>
+      <UForm
         :schema="schema"
         :state="registerDetails"
         class="gap-4 lg:w-1/3 w-3/4 flex-col mx-auto flex pb-6"
@@ -119,8 +122,9 @@ async function onSubmit(event: FormSubmitEvent<typeof schema>) {
             size="xl"
             label="Register"
           />
-        </div> </UForm
-    ></ClientOnly>
+        </div>
+      </UForm>
+    </ClientOnly>
   </div>
 </template>
 

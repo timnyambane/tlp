@@ -28,10 +28,10 @@ const isDark = computed({
 
     <!-- Mobile Menu icon -->
     <UIcon
-      @click="toggleSideMenu"
       name="i-heroicons-bars-3-bottom-right-20-solid"
       color="mariner"
       class="lg:hidden ml-4"
+      @click="toggleSideMenu"
     />
 
     <!-- Navigation for larger screens -->
@@ -40,14 +40,16 @@ const isDark = computed({
         class="hover:text-primary font-medium"
         to="/register/customer"
         exact-active-class="text-primary"
-        >Register as Customer</NuxtLink
       >
+        Register as Customer
+      </NuxtLink>
       <NuxtLink
         class="hover:text-primary font-medium"
         to="/register/business"
         exact-active-class="text-primary"
-        >Register Business</NuxtLink
       >
+        Register Business
+      </NuxtLink>
     </div>
     <div class="flex-1 justify-end lg:flex hidden">
       <UButton
@@ -84,23 +86,24 @@ const isDark = computed({
       >
         <div class="flex justify-end mb-4">
           <UIcon
-            @click="toggleSideMenu"
             name="i-heroicons-x-mark-16-solid"
             color="mariner"
             class="lg:hidden ml-4 flex"
+            @click="toggleSideMenu"
           />
         </div>
-        <NuxtLink class="m-2 text-primary" to="/register/customer"
-          >Register as Customer</NuxtLink
-        >
-        <NuxtLink class="m-2 text-primary" to="/register/business"
-          >Register Business</NuxtLink
-        >
+        <NuxtLink class="m-2 text-primary" to="/register/customer">
+          Register as Customer
+        </NuxtLink>
+        <NuxtLink class="m-2 text-primary" to="/register/business">
+          Register Business
+        </NuxtLink>
         <hr />
         <NuxtLink
           to="/"
           class="border mt-5 px-4 py-1 w-fit rounded border-primary text-primary hover:bg-primary hover:text-white transition-all font-bold"
-          >Log In
+        >
+          Log In
         </NuxtLink>
       </div>
     </transition>

@@ -1,8 +1,6 @@
 <script setup lang="ts"></script>
 <template>
-  <div
-    class="flex dark:bg-slate-950 bg-pattensBlue-100 pt-10 mx-auto flex-col justify-center items-center shadow-lg"
-  >
+  <div class="flex pt-10 mx-auto flex-col justify-center items-center">
     <div>
       <img src="/assets/images/lp-logo.png" alt="Footer Logo" class="h-12" />
     </div>
@@ -13,52 +11,59 @@
         class="hover:text-primary my-2 py-1 text-center"
         to="/"
         exact-active-class="text-primary"
-        >Post a job</NuxtLink
       >
+        Post a job
+      </NuxtLink>
       <NuxtLink
         class="hover:text-primary my-2 py-1 text-center"
         to="/"
         exact-active-class="text-primary"
-        >Business directory</NuxtLink
       >
+        Business directory
+      </NuxtLink>
       <NuxtLink
         class="hover:text-primary my-2 py-1 text-center"
         to="/register/customer"
         exact-active-class="text-primary"
-        >Register a Customer</NuxtLink
       >
+        Register a Customer
+      </NuxtLink>
       <NuxtLink
         class="hover:text-primary my-2 py-1 text-center"
         to="/register/business"
         exact-active-class="text-primary"
-        >Register a Business</NuxtLink
       >
+        Register a Business
+      </NuxtLink>
       <NuxtLink
         class="hover:text-primary my-2 py-1 text-center"
         to="/"
         exact-active-class="text-primary"
-        >Contact Us</NuxtLink
       >
+        Contact Us
+      </NuxtLink>
     </div>
     <div class="flex items-center m-3 justify-around w-[90%]">
       <div class="flex gap-2 flex-col sm:flex-row">
-        <NuxtLink to="/" class="underline text-start">Terms of use</NuxtLink>
-        <NuxtLink to="/" class="underline text-start">Privacy policy</NuxtLink>
+        <NuxtLink to="/" class="underline text-start"> Terms of use </NuxtLink>
+        <NuxtLink to="/" class="underline text-start">
+          Privacy policy
+        </NuxtLink>
       </div>
       <h3 class="text-center">©The Local Pro, 2024</h3>
       <div class="icons flex items-center sm:gap-4 gap-2">
-        <NuxtLink to="/" target="blank"
-          ><img src="/assets/images/facebook.png" class="w-8" alt=""
-        /></NuxtLink>
-        <NuxtLink to="/" target="blank"
-          ><img src="/assets/images/instagram.png" class="w-8" alt=""
-        /></NuxtLink>
-        <NuxtLink to="/" target="blank"
-          ><img src="/assets/images/linkedin.png" class="w-8" alt=""
-        /></NuxtLink>
-        <NuxtLink to="/" target="blank"
-          ><img src="/assets/images/twitter.png" class="w-8" alt=""
-        /></NuxtLink>
+        <NuxtLink to="/" target="blank">
+          <img src="/assets/images/facebook.png" class="w-8" alt="" />
+        </NuxtLink>
+        <NuxtLink to="/" target="blank">
+          <img src="/assets/images/instagram.png" class="w-8" alt="" />
+        </NuxtLink>
+        <NuxtLink to="/" target="blank">
+          <img src="/assets/images/linkedin.png" class="w-8" alt="" />
+        </NuxtLink>
+        <NuxtLink to="/" target="blank">
+          <img src="/assets/images/twitter.png" class="w-8" alt="" />
+        </NuxtLink>
       </div>
     </div>
   </div>

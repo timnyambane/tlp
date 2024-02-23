@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import { string, objectAsync, email, minLength, type Input } from "valibot";
+import type { LoginDetails } from "~/data";
+import { z } from "zod";
+
 import type { FormSubmitEvent } from "#ui/types";
 
-const schema = objectAsync({
-  email: string([
-    minLength(1, "E-mail cannot be blank"),
-    email("Invalid email"),
-  ]),
-  password: string([minLength(1, "Password cannot be blank")]),
+const schema = z.object({
+  email: z.string().min(1, "E-mail is required").email("Invalid email"),
+  password: z
+    .string()
+    .min(1, "Password is required")
+    .min(6, "Must be at least 6 characters"),
 });
 
-type Schema = Input<typeof schema>;
+type Schema = z.output<typeof schema>;
 
-const loginDetails = reactive({
+const loginDetails: LoginDetails = reactive({
   email: "",
   password: "",
 });
@@ -51,7 +53,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       </UFormGroup>
 
       <div class="flex items-center justify-center">
-        <UButton type="submit" class="px-20" size="lg">Login</UButton>
+        <UButton type="submit" class="px-20" size="lg"> Login </UButton>
       </div>
     </UForm>
   </div>
