@@ -46,11 +46,11 @@ const resetSelectedServices = () => {
 
 const goToPreviousStep = () => {
   switch (stepRegistrationName.value) {
-    case "third-step":
-      stepRegistrationName.value = "second-step";
-      break;
     case "second-step":
       stepRegistrationName.value = "first-step";
+      break;
+    case "third-step":
+      stepRegistrationName.value = "second-step";
       break;
     default:
       break;
@@ -104,20 +104,45 @@ async function submitForm() {}
     <ClientOnly>
       <UForm
         :state="registerDetails"
-        class="gap-4 lg:w-1/2 w-4/5 flex-col mx-auto flex pb-6"
+        class="gap-4 lg:w-1/2 w-4/5 flex-col mx-auto flex"
       >
-        <div class="flex justify-center py-2">
+        <div class="px-4 sm:px-6 lg:px-8">
           <UButton
-            v-for="(button, index) in btnLinks"
-            :key="index"
-            :color="
-              stepRegistrationName === button.registerStep ? 'primary' : 'gray'
-            "
-            :icon="button.icon"
+            size="sm"
+            color="primary"
             variant="link"
-            :label="button.label"
-            @click="handleStepClick(button)"
+            label="Back"
+            @click="goToPreviousStep"
+            :class="
+              stepRegistrationName == 'first-step' ? 'opacity-0' : 'opacity-100'
+            "
           />
+
+          <div class="flex justify-center items-center py-2">
+            <template v-for="(button, index) in btnLinks">
+              <span
+                class="flex justify-center items-center mr-4"
+                v-if="
+                  index > 0 &&
+                  btnLinks[index - 1].registerStep !== button.registerStep
+                "
+                :key="index + '-separator'"
+              >
+                <UIcon name="i-heroicons-chevron-right-16-solid" />
+              </span>
+
+              <UButton
+                :color="
+                  stepRegistrationName === button.registerStep
+                    ? 'primary'
+                    : 'gray'
+                "
+                :icon="button.icon"
+                variant="link"
+                :label="button.label"
+              />
+            </template>
+          </div>
         </div>
         <div class="flex flex-col lg:flex-row gap-5 justify-center">
           <div
